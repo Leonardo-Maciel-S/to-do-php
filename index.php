@@ -1,7 +1,7 @@
 <?php
     require './db/index.php';
 
-
+    session_start();
 ?>
 
 <!doctype html>
@@ -18,6 +18,22 @@
             To-do
         </a>
     </nav>
+
+    <?php if(isset($_SESSION['message'])) { ?>
+
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            <?php echo $_SESSION["message"]; ?>
+        </div>
+        </div>
+
+    <?php 
+    } 
+    unset($_SESSION['message']);
+?>
 
     <main class='container d-flex flex-column gap-3'>
         <div class='d-flex justify-content-between'>
@@ -58,12 +74,18 @@
                             <button class='btn btn-secondary btn-sm'> 
                                 Visualizar
                             </button>
+
                             <button class='btn btn-success btn-sm'> 
                                 Editar
                             </button>
-                            <button class='btn btn-danger btn-sm'> 
-                                Deletar
-                            </button>
+
+                            <a href="./actions/delete.php?delete=<?php echo $task['rowid']?>">
+                                <button class='btn btn-danger btn-sm' type="submit" > 
+                                    Deletar
+                                </button>
+                            </a>
+                          
+
                         </td>
                     </tr>
 
