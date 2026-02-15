@@ -2,7 +2,12 @@
     require './db/index.php';
 
     session_start();
+
+    $result = $db->query("SELECT rowid, * FROM task");
+
 ?>
+
+
 
 <!doctype html>
 <html lang="en">
@@ -19,21 +24,23 @@
         </a>
     </nav>
 
-    <?php if(isset($_SESSION['message'])) { ?>
+    <?php 
+    
+        if(isset($_SESSION['message'])) { ?>
 
-        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-            <?php echo $_SESSION["message"]; ?>
-        </div>
-        </div>
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <?php echo $_SESSION["message"]; ?>
+            </div>
+            </div>
 
     <?php 
-    } 
-    unset($_SESSION['message']);
-?>
+        } 
+        unset($_SESSION['message']);
+    ?>
 
     <main class='container d-flex flex-column gap-3'>
         <div class='d-flex justify-content-between'>
@@ -50,51 +57,80 @@
                 <tr>
                     <th>id</th>
                     <th>Titulo</th>
+                    <th>Realizado?</th>
                     <th>Ações</th>
                 </tr>
             </thead>
+            
 
-            <tbody>
-                <?php 
+                <tbody>
+                    <?php 
 
-                $result = $db->query("SELECT rowid, * FROM task");
+                    
+                    if($result) {
+                        while($task = $result->fetchArray(SQLITE3_ASSOC)) {
+                    ?>
+                        <tr>
+                            <td>
+                                <?php echo $task['rowid'];?>
+                            </td>
+                            <td>
+                                <?php echo $task['description'];?>
+                            </td>
+                            <td>
+                                <?php if($task['is_done'] === 1) { ?>
 
+                                    <img src="./public/images/check.png" alt="" width="25">
 
-                if($result) {
-                    while($task = $result->fetchArray(SQLITE3_ASSOC)) { 
-                ?>
-                    <tr>
-                        <td>
-                            <?php echo $task['rowid'];?>
-                        </td>
-                        <td>
-                            <?php echo $task['description'];?>
-                        </td>
-                        <td>
-                            <button class='btn btn-secondary btn-sm'> 
-                                Visualizar
-                            </button>
+                                <?php } else { ?>
 
-                            <button class='btn btn-success btn-sm'> 
-                                Editar
-                            </button>
+                                    <img src="./public/images/fail.png" alt="" width="25">
 
-                            <a href="./actions/delete.php?delete=<?php echo $task['rowid']?>">
-                                <button class='btn btn-danger btn-sm' type="submit" > 
-                                    Deletar
+                                <?php } ?>
+                            </td>
+                            <td>
+                                <a href="./actions/is-done.php?is_done=<?php echo $task['is_done']?>&id=<?php echo $task['rowid']?>">
+                                    <button class='btn btn-secondary btn-sm'> 
+                                        <?php if($task['is_done'] === 1) { ?>
+
+                                        Desfazer
+
+                                        <?php } else { ?>
+
+                                            Concluir
+                                            
+                                        <?php } ?>
+                                    </button>                               
+                                </a>
+
+                                <button class='btn btn-success btn-sm'> 
+                                    Editar
                                 </button>
-                            </a>
-                          
 
-                        </td>
-                    </tr>
+                                <a href="./actions/delete.php?delete=<?php echo $task['rowid']?>">
+                                    <button class='btn btn-danger btn-sm' type="submit" > 
+                                        Deletar
+                                    </button>
+                                </a>
+                            
 
-                <?php 
+                            </td>
+                        </tr>
+
+                    <?php 
+                        }
                     }
-                }
-                ?>
-            </tbody>
+                    ?>
+                </tbody>
+
+
+
         </table>
+
+        <?php if(!$result->fetchArray()) { ?>
+            <p class="text-center fw-semibold fs-5">Nenhuma tarefa cadastrada!</p>
+        <?php } ?>
+
     </main>
 
 
