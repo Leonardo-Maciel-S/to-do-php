@@ -8,7 +8,7 @@ include './../db/index.php';
 if(isset($_POST["task"])) {
     $task = $_POST["task"];
 
-    $result = $db->exec("INSERT INTO task VALUES ('$task', 'false')");
+    $result = $db->exec("INSERT INTO task VALUES ('$task', 0)");
 
     if($result) {
         $_SESSION['message'] = 'Criado com sucesso';
