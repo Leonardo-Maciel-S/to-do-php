@@ -55,31 +55,31 @@
                             <?php } ?>
                         </td>
                         <td>
-                            <a href="./actions/is-done.php?is_done=<?php echo $task['is_done']?>&id=<?php echo $task['rowid']?>">
-                                <button class='btn btn-secondary btn-sm'> 
-                                    <?php if($task['is_done'] === 1) { ?>
+                            <div class="d-flex align-items-center justify-content-start flex-wrap gap-2 m-w-400">
+                                <a class="d-block flex-grow-1" href="./actions/is-done.php?is_done=<?php echo $task['is_done']?>&id=<?php echo $task['rowid']?>">
+                                    <button class='btn btn-secondary btn-sm w-100 btn-actions '> 
+                                        <?php if($task['is_done'] === 1) { ?>
 
-                                    Desfazer
+                                        Desfazer
 
-                                    <?php } else { ?>
+                                        <?php } else { ?>
 
-                                        Concluir
-                                        
-                                    <?php } ?>
-                                </button>                               
-                            </a>
+                                            Concluir
+                                            
+                                        <?php } ?>
+                                    </button>                               
+                                </a>
 
-                            <button class='btn btn-success btn-sm'> 
-                                Editar
-                            </button>
-
-                            <a href="./actions/delete.php?delete=<?php echo $task['rowid']?>">
-                                <button class='btn btn-danger btn-sm' type="submit" > 
-                                    Deletar
+                                <button class='btn btn-success btn-sm d-block flex-grow-1 btn-actions '> 
+                                    Editar
                                 </button>
-                            </a>
-                        
 
+                                <a class="d-block flex-grow-1" href="./actions/delete.php?delete=<?php echo $task['rowid']?>">
+                                    <button class='btn btn-danger btn-sm w-100 btn-actions ' type="submit" > 
+                                        Deletar
+                                    </button>
+                                </a>
+                            </div>
                         </td>
                     </tr>
 
