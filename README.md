@@ -18,3 +18,26 @@ Api desenvolvida para fixar conhecimentos básicos do php, como desenvolver uma 
 1. Variáveis Globais.
 1. Sessions.
 1. Como usar php "dentro" do HTML.
+
+## Telas
+
+- Sem tarefas cadastrada.
+
+  ![no-task](/public/images/readme/no-task.png)
+
+- Form de criação da tarefa
+
+  ![add-task](/public/images/readme/add-task.png)
+  ![add-task-exemple](/public/images/readme/add-task-exemple.png)
+
+- Tarefa criada e não concluída
+
+  ![with-task](/public/images/readme/with-task.png)
+
+- Tarefa concluída
+
+  ![with-completed-task](/public/images/readme/with-completed-task.png)
+
+- Mais de uma tarefa cadastrada
+
+  ![many-tasks](/public/images/readme/many-tasks.png)
